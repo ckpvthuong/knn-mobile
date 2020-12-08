@@ -16,7 +16,8 @@ export default function App() {
   const [text, setText] = useState("");
 
   const getResultFromServer = () => {
-    console.log(text);
+    Keyboard.dismiss()
+    console.log("Text input: ",text);
     return fetch(`${host}/text`, {
       method: "POST",
       headers: {
@@ -25,7 +26,7 @@ export default function App() {
       },
       body: JSON.stringify({
         text_input: text,
-      }),
+      })
     })
       .then((response) => response.json())
       .then((res) => setResult(res.result))
