@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-const host = "https://fd233650-2199-4bf5-8aec-f95f5c0b336f.mock.pstmn.io";
+const host = "http://192.168.98.101:5000";
 
 export default function App() {
   const [result, setResult] = useState("");
@@ -18,23 +18,26 @@ export default function App() {
   const getResultFromServer = () => {
     Keyboard.dismiss()
     console.log("Text input: ",text);
-    return fetch(`${host}/text`, {
+    return fetch(`${host}/textjson`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        text_input: text,
+        text: text,
       })
     })
       .then((response) => response.json())
-      .then((res) => setResult(res.result))
+      .then((res) => handleRes(res.result))
       .catch((error) => {
         console.error(error);
       });
   };
-
+  const handleRes = (res)=>{
+    console.log("res",res);
+    setResult(res)
+  }
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
