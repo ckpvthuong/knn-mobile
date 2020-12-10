@@ -8,10 +8,21 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const host = "http://192.168.98.101:5000";
 
-export default function App() {
+function inputFile({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>input file Screen</Text>
+    </View>
+  );
+}
+
+function inputText({ navigation }){
   const [result, setResult] = useState("");
   const [text, setText] = useState("");
 
@@ -53,8 +64,25 @@ export default function App() {
         </View>
         <Text style={styles.resultLabel}>Result</Text>
         <Text style={styles.result}>{result}</Text>
+        <Button
+        title="Nhập file dạng File"
+        onPress={() => navigation.navigate('file')}
+        />
       </View>
     </TouchableWithoutFeedback>
+  );
+}
+
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="text" component={inputText} options={{ title: 'Nhập dạng text' }}/>
+        <Stack.Screen name="file" component={inputFile} options={{ title: 'Nhập dạng file' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
