@@ -1,13 +1,4 @@
 import React, { useState } from "react";
-// import {
-//   Button,
-//   StyleSheet,
-//   Text,
-//   TextInput,
-//   View,
-//   Keyboard,
-//   TouchableWithoutFeedback,
-// } from "react-native";
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';

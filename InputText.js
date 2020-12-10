@@ -34,12 +34,15 @@ export default function inputText({ navigation }){
         console.error(error);
       });
   };
+
   const handleRes = (res)=>{
     console.log("res",res);
     setResult(res)
   }
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+
       <View style={styles.container}>
         <TextInput
           multiline
@@ -48,16 +51,20 @@ export default function inputText({ navigation }){
           onChangeText={(text) => setText(text)}
           defaultValue={text}
         />
+        
         <View style={styles.buttonSubmit}>
           <Button onPress={getResultFromServer} title="Submit" color="white" />
         </View>
+
         <Text style={styles.resultLabel}>Result</Text>
         <Text style={styles.result}>{result}</Text>
+
         <Button
         title="Nhập file dạng File"
         onPress={() => navigation.navigate('file')}
         />
       </View>
+
     </TouchableWithoutFeedback>
   );
 }
