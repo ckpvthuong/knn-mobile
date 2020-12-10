@@ -6,9 +6,8 @@ import {
   StyleSheet, 
   Text, View, 
   TouchableOpacity, 
-  Button, Image
+  Button, Image,  Alert
 } from "react-native";
-import {  } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 
 const host = "http://192.168.1.125:5000";
@@ -25,21 +24,37 @@ export default function InputFile(){
   }
 
   const getResultFromServer = () => {
-    return fetch(
-      `${host}/filejson`,
-      {
-        method: 'POST',
-        body:document,
-        headers: {
-        "Content-Type": "multipart/form-data"
+    if(document == null) {
+      Alert.alert(
+        "Thông báo",
+        "Hãy chọn file",
+        [
+          // {
+          //   text: "Cancel",
+          //   onPress: () => console.log("Cancel Pressed"),
+          //   style: "cancel"
+          // },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      );
+    }
+    else 
+      fetch(
+        `${host}/filejson`,
+        {
+          method: 'POST',
+          body:document,
+          headers: {
+          "Content-Type": "multipart/form-data"
+          }
         }
-      }
-    )
-    .then((response) => response.json())
-    .then((res) => handleRes(res.result))
-    .catch((error) => {
-      console.error(error);
-    });
+      )
+      .then((response) => response.json())
+      .then((res) => handleRes(res.result))
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   const handleRes = (res)=>{
@@ -90,7 +105,6 @@ const styles = StyleSheet.create({
     color: "green",
     alignSelf: "center",
     fontSize: 24,
-    textDecorationLine: "underline",
   },
   result: {
     marginTop: 40,

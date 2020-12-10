@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     color: "green",
     alignSelf: "center",
     fontSize: 24,
-    textDecorationLine: "underline",
   },
   result: {
     marginTop: 40,
