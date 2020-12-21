@@ -13,7 +13,7 @@ import {
 // import SmoothPicker from 'react-native-smooth-picker';
 import {Picker} from '@react-native-picker/picker';
 
-const host = "http://192.168.1.4:5000";
+const host = "http://192.168.1.7:5000";
 
 export default function inputText({ navigation }){
   const [result, setResult] = useState("");
@@ -23,6 +23,10 @@ export default function inputText({ navigation }){
   const getResultFromServer = () => {
     Keyboard.dismiss()
     console.log("Text input: ",text);
+    console.log({
+      text: text,
+      k: k
+    })
     return fetch(`${host}/textjson`, {
       method: "POST",
       headers: {
@@ -31,6 +35,7 @@ export default function inputText({ navigation }){
       },
       body: JSON.stringify({
         text: text,
+        k: k
       })
     })
       .then((response) => response.json())
@@ -57,6 +62,7 @@ export default function inputText({ navigation }){
           defaultValue={text}
         />
         
+        <Text style={styles.k}>Chỉ số k</Text>
         <Picker
           selectedValue={k}
           // style={{height: 50, width: 100}}
@@ -132,4 +138,10 @@ const styles = StyleSheet.create({
   pickerItem: {
     color: 'red'
   },
+  k: {
+    marginTop: 20,
+    color: "green",
+    alignSelf: "center",
+    fontSize: 24,
+  }
 });
